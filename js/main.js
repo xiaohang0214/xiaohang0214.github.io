@@ -776,6 +776,24 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('toggle-menu').addEventListener('click', () => { sidebarFn.open() })
   }
 
+  window.openMemberModal = function(name) {
+    const modalId = 'member-modal-' + name.replace(/\s/g, '')
+    const modal = document.getElementById(modalId)
+    if (modal) {
+      modal.classList.add('active')
+      document.body.style.overflow = 'hidden'
+    }
+  }
+
+  window.closeMemberModal = function(name) {
+    const modalId = 'member-modal-' + name.replace(/\s/g, '')
+    const modal = document.getElementById(modalId)
+    if (modal) {
+      modal.classList.remove('active')
+      document.body.style.overflow = ''
+    }
+  }
+
   refreshFn()
   unRefreshFn()
 })
