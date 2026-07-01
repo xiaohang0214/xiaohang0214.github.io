@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>李东航｜趣味个人学生简历</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+        }
+        body {
+            background: linear-gradient(-45deg, #ffd6e8, #c6e7ff, #fff7cc, #d9ffdd);
+            background-size: 400% 400%;
+            animation: bgGradient 12s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 50px 15px;
+            position: relative;
+        }
+        /* 动态渐变背景动画 */
+        @keyframes bgGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        /* 漂浮彩色装饰小球 */
+        .float-ball {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.6;
+            filter: blur(6px);
+            z-index: -1;
+            animation: floatMove 15s linear infinite;
+        }
+        .ball1 { width: 180px; height: 180px; background: #ff9bc1; top: 8%; left: -80px; animation-duration: 18s; }
+        .ball2 { width: 240px; height: 240px; background: #96d8ff; bottom: 10%; right: -120px; animation-duration: 22s; }
+        .ball3 { width: 120px; height: 120px; background: #ffe888; top: 40%; right: 5%; animation-duration: 14s; }
+        .ball4 { width: 150px; height: 150px; background: #b7ffb7; bottom: 30%; left: 3%; animation-duration: 16s; }
+        @keyframes floatMove {
+            0% { transform: translate(0,0) rotate(0deg); }
+            50% { transform: translate(60px, -90px) rotate(180deg); }
+            100% { transform: translate(0,0) rotate(360deg); }
+        }
+        /* 鼠标彩虹拖尾画布 */
+        #cursor-trail {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        /* 主简历卡片 流光边框 */
+        .resume-box {
+            width: 100%;
+            max-width: 920px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 55px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        /* 流光动画边框 */
+        .resume-box::before {
+            content: "";
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(90deg, #ff6b9d, #ffd06b, #6bffb8, #6bb8ff, #c084ff);
+            background-size: 400% 400%;
+            animation: streamLight 6s linear infinite;
+            border-radius: 22px;
+            z-index: -1;
+        }
+        @keyframes streamLight {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 400% 50%; }
+        }
+        .resume-box:hover {
+            transform: translateY(-10px) rotateX(2deg);
+            box-shadow: 0 15px 50px rgba(100, 160, 255, 0.3);
+        }
+        /* 头部头像+标题区域 */
+        .header-wrap {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 45px;
+            padding-bottom: 30px;
+            border-bottom: 3px dashed #70a8ff;
+        }
+        /* 趣味头像框 旋转hover */
+        .avatar-box {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9bc1, #82c8ff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 4px solid #fff;
+        }
+        .avatar-box:hover {
+            transform: scale(1.12) rotate(8deg);
+            box-shadow: 0 0 25px rgba(255, 110, 180, 0.5);
+        }
+        .title-group h1 {
+            font-size: 34px;
+            background: linear-gradient(90deg, #ff5898, #4096ff, #9b59ff);
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+        .title-group p {
+            font-size: 17px;
+            color: #666;
+        }
+        /* 内容板块通用 */
+        .section {
+            margin: 40px 0;
+            padding: 24px;
+            border-radius: 16px;
+            background: rgba(240, 248, 255, 0.6);
+            transition: all 0.35s ease;
+            position: relative;
+        }
+        .section:hover {
+            transform: translateX(8px) scale(1.01);
+            background: rgba(220, 240, 255, 0.9);
+            box-shadow: inset 0 0 12px rgba(100,180,255,0.2);
+        }
+        .section-title {
+            font-size: 21px;
+            font-weight: bold;
+            padding-left: 16px;
+            margin-bottom: 22px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title span.icon {
+            font-size: 24px;
+        }
+        /* 趣味悬浮气泡提示 */
+        .tip-pop {
+            position: absolute;
+            left: 160px;
+            top: -14px;
+            background: linear-gradient(135deg, #ff7eb3, #7eb6ff);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+            box-shadow: 0 4px 15px rgba(255,100,180,0.3);
+        }
+        .section-title:hover .tip-pop {
+            opacity: 1;
+            visibility: visible;
+            top: -24px;
+        }
+        /* 内容条目 */
+        .content-item {
+            line-height: 2;
+            font-size: 16px;
+            color: #333;
+            margin: 14px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+        .content-item::before {
+            content: "★";
+            color: #ff78b4;
+            position: absolute;
+            left: 5px;
+        }
+        /* 双栏布局 */
+        .double-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+        /* 彩虹分割线 */
+        .split-line {
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #ff9bc1, #ffdd70, #8affb8, #70b8ff, #c290ff);
+            border-radius: 3px;
+            margin: 32px 0;
+        }
+        /* 弹跳彩色标签 */
+        .tag-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 15px;
+        }
+        .tag {
+            padding: 7px 18px;
+            border-radius: 40px;
+            font-size: 14px;
+            color: #fff;
+            transition: all 0.3s ease;
+            animation: tagBounce 3s ease-in-out infinite alternate;
+        }
+        .tag:nth-child(1) { background: #ff78b4; animation-delay: 0s; }
+        .tag:nth-child(2) { background: #ffb86c; animation-delay: 0.2s; }
+        .tag:nth-child(3) { background: #69d897; animation-delay: 0.4s; }
+        .tag:nth-child(4) { background: #62a8ff; animation-delay: 0.6s; }
+        .tag:nth-child(5) { background: #b07cff; animation-delay: 0.8s; }
+        @keyframes tagBounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-6px); }
+        }
+        .tag:hover {
+            transform: scale(1.15);
+            filter: brightness(1.15);
+        }
+        /* 手机适配 */
+        @media (max-width:720px) {
+            .header-wrap { flex-direction: column; text-align:center; }
+            .double-row { grid-template-columns: 1fr; }
+            .resume-box { padding:30px; }
+            .title-group h1 { font-size:26px; }
+            .avatar-box { width:110px; height:110px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 漂浮背景彩球 -->
+    <div class="float-ball ball1"></div>
+    <div class="float-ball ball2"></div>
+    <div class="float-ball ball3"></div>
+    <div class="float-ball ball4"></div>
+
+    <!-- 彩虹鼠标拖尾画布 -->
+    <canvas id="cursor-trail"></canvas>
+
+    <div class="resume-box">
+        <!-- 头部头像标题 -->
+        <div class="header-wrap">
+            <div class="avatar-box">
+                上传头像<br>✨
+            </div>
+            <div class="title-group">
+                <h1>李东航</h1>
+                <p>快乐深度学习者｜本科在校学生</p>
+            </div>
+        </div>
+
+        <!-- 板块1 基础信息 -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">📋</span> 个人基础信息
+                <span class="tip-pop">我的基础在校身份小档案</span>
+            </h2>
+            <div class="double-row">
+                <div class="content-item">姓名：李东航</div>
+                <div class="content-item">身份：全日制本科在校生</div>
+                <div class="content-item">学习模式：自主深度钻研型</div>
+                <div class="content-item">性格标签：耐心、爱思考、好奇心强</div>
+            </div>
+            <div class="split-line"></div>
+            <div class="content-item">日常作息规律，坚持每日整理学习笔记，喜欢拆解复杂知识点，享受弄懂难题带来的成就感。</div>
+            <div class="content-item">不喜欢浅层敷衍式学习，愿意花时间深挖知识背后逻辑，把零散内容整理成完整知识体系。</div>
+        </div>
+
+        <!-- 板块2 学习优势 -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">💡</span> 学习特长与优势
+                <span class="tip-pop">我独特的学习能力亮点</span>
+            </h2>
+            <div class="content-item">自主探索能力突出，课本内容无法满足求知欲，经常主动查阅课外书籍、科普文章拓展知识面。</div>
+            <div class="content-item">擅长归纳梳理，习惯用思维导图串联知识点，打通不同学科壁垒，做到举一反三、灵活运用。</div>
+            <div class="content-item">拥有极强探究精神，遇到不懂的问题不会轻易放弃，多方查阅资料、反复推导直到完全吃透。</div>
+            <div class="content-item">心态稳定，抗压能力良好，能够平衡课内作业与自主拓展，长期维持稳定高效的学习节奏。</div>
+            <div class="content-item">乐于分享思考，和同学交流学习思路时喜欢多角度分析，互相启发共同进步。</div>
+        </div>
+
+        <!-- 板块3 学习观念 -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">📖</span> 我的学习观
+                <span class="tip-pop">长久以来坚持的学习想法</span>
+            </h2>
+            <div class="content-item">学习是一场长期马拉松，拒绝临时突击速成，只有日积月累的沉淀才能形成真正属于自己的认知。</div>
+            <div class="content-item">坚持通识广泛学习，不只局限本专业内容，人文、历史、逻辑、自然科学都会主动涉猎，拓宽眼界。</div>
+            <div class="content-item">拒绝被动灌输，读书听课都会带着疑问思考，敢于质疑固有观点，形成独立判断思维。</div>
+            <div class="content-item">学习最终是完善自我，提升眼界、心性与综合素养，而不只是应付考试、完成课业任务。</div>
+        </div>
+
+        <!-- 板块4 爱好与日常 -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">🎨</span> 课余爱好与日常
+                <span class="tip-pop">学习之外丰富的生活爱好</span>
+            </h2>
+            <div class="content-item">保持长期阅读习惯，偏爱人文散文、逻辑思辨、历史通识类书籍，定期写下读书感悟。</div>
+            <div class="content-item">闲暇时间整理读书笔记、梳理知识框架，享受安静沉浸式思考的过程。</div>
+            <div class="content-item">课余喜欢安静沉淀自我，偶尔散步放空大脑，劳逸结合保持高效学习状态。</div>
+            <div class="tag-wrap">
+                <span class="tag">深度阅读</span>
+                <span class="tag">随笔记录</span>
+                <span class="tag">逻辑梳理</span>
+                <span class="tag">通识拓展</span>
+                <span class="tag">自主复盘</span>
+            </div>
+        </div>
+
+        <!-- 板块5 自我评价 -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">✨</span> 综合自我评价
+                <span class="tip-pop">对自己整体的综合总结</span>
+            </h2>
+            <div class="content-item">作为一名在校本科生，我始终保持旺盛的好奇心与求知欲，对待学业踏实认真，自律且有规划。</div>
+            <div class="content-item">性格沉稳有耐心，擅长独立深度思考，擅长自主规划学习任务，定期复盘调整学习方法，持续提升效率。</div>
+            <div class="content-item">坚持课内课外同步积累，广泛阅读拓宽认知边界，不断丰富自身知识储备与内在思想修养。</div>
+            <div class="content-item">始终保持终身学习者心态，明白求知没有终点，愿意循序渐进持续沉淀，在学习中不断完善自我。</div>
+            <div class="content-item">心态乐观包容，愿意接纳不同观点，善于反思自身不足，持续向着更好的自己稳步前进。</div>
+        </div>
+    </div>
+
+    <script>
+        // 彩虹多色鼠标拖尾粒子
+        const canvas = document.getElementById('cursor-trail');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let mouseX = 0, mouseY = 0;
+        const particles = [];
+        const rainbowColors = [
+            "rgba(255,120,180,",
+            "rgba(255,184,108,",
+            "rgba(105,216,151,",
+            "rgba(98,168,255,",
+            "rgba(176,124,255,"
+        ];
+
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 5 + 1;
+                this.speedX = (Math.random() - 0.5) * 2;
+                this.speedY = (Math.random() - 0.5) * 2;
+                this.life = 1;
+                this.decay = Math.random() * 0.025 + 0.01;
+                this.colorIdx = Math.floor(Math.random() * rainbowColors.length);
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life -= this.decay;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = rainbowColors[this.colorIdx] + this.life + ")";
+                ctx.fill();
+            }
+        }
+
+        window.addEventListener('mousemove', e => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            for(let i=0; i<5; i++) particles.push(new Particle(mouseX, mouseY));
+        });
+
+        function animate() {
+            ctx.clearRect(0,0,width,height);
+            for(let i=particles.length-1; i>=0; i--){
+                const p = particles[i];
+                p.update();
+                p.draw();
+                if(p.life <= 0) particles.splice(i,1);
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
