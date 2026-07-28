@@ -794,6 +794,22 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  window.showWeChat = function() {
+    const modal = document.getElementById('wechat-modal')
+    if (modal) {
+      modal.classList.add('active')
+      document.body.style.overflow = 'hidden'
+    }
+  }
+
+  window.closeWeChat = function() {
+    const modal = document.getElementById('wechat-modal')
+    if (modal) {
+      modal.classList.remove('active')
+      document.body.style.overflow = ''
+    }
+  }
+
   refreshFn()
   unRefreshFn()
 })
